@@ -8,15 +8,33 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
+      query: ''
     }
     this.search = this.search.bind(this)
 
   }
 
+
+
+  // AJAX POST REQUEST
+
+  requestRepos (userName) {
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:1128/repos',
+      data: userName,
+      contentType: 'application/json',
+      success: (results) => {console.log(results, 'added')}
+    })
+
+  }
+
+
   search (term) {
-    console.log(`${term} was searched`);
-    // TODO
+    this.setState({query : term})
+    this.requestRepos(JSON.stringify({query: term}))
   }
 
   render () {
