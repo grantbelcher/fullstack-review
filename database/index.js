@@ -13,6 +13,7 @@ connection.on('disconnected', function(){
 
 let repoSchema = new mongoose.Schema({
   // TODO: your schema here!
+  _id: Number,
   userName: String,
   repoName: String,
   url: String,
@@ -29,6 +30,7 @@ let save = (err, repoCollection) => {
   // the MongoDB
   repoCollection.forEach((obj) => {
     var currentRepo = new Repo({
+      _id: obj.id,
       userName: obj.owner.login,
       repoName: obj.name,
       url: obj.html_url,
