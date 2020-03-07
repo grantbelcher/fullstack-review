@@ -28,7 +28,7 @@ class RepoList extends React.Component {
 
   render() {
     var repoEntry = this.props.repos.map((entry) => {
-    return <li><a href={entry.url}>{entry.userName}</a></li>
+    return <li><a href={entry.url}>{entry.repoName}</a></li>
 
       // (
       //   <div>

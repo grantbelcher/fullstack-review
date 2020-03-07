@@ -55,7 +55,7 @@ let extract = (callback) => {
   let cb = (err, repos) => {callback(repos)}
 
 
-  Repo.find(cb).sort({forks: -1}).limit(10)
+  Repo.find(cb).sort({forks: -1}).limit(25)
 
 
   // if (err) {
