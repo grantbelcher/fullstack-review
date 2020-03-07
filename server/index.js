@@ -4,7 +4,9 @@ const github = require('../helpers/github.js')
 const database = require('../database/index.js')
 let app = express();
 
-console.log(database, 'dsdsdsdsdsdsdsdds')
+
+
+
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json())
 
@@ -19,8 +21,9 @@ app.post('/repos', function (req, res) {
 
 
 
-  var collection = github.getReposByUsername('grantbelcher', database.save)
-
+  // var collection =
+  github.getReposByUsername(req.body.query, database.save)
+  res.status(200).send('repos posted!')
 
   // This route should take the github username provided
   // and get the repo information from the github API, then
@@ -28,7 +31,11 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  res.send('repos appear here')
+
+  database.extract(res.send.bind(res))
+
+
+  // res.send('repos appear here')
   // TODO - your code here!
   // This route should send back the top 25 repos
 });

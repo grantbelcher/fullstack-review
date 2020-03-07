@@ -15,7 +15,11 @@ class App extends React.Component {
 
   }
 
+  componentDidMount () {
 
+    this.getRepos()
+
+  }
 
   // AJAX POST REQUEST
 
@@ -28,6 +32,19 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (results) => {console.log(results, 'added')}
     })
+
+  }
+
+  // AJAX GET REQUEST
+
+  getRepos () {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:1128/repos',
+      success: results => (this.setState({repos: results}))
+    })
+
+
 
   }
 

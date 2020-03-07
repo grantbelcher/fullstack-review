@@ -29,14 +29,15 @@ let save = (err, repoCollection) => {
   // This function should save a repo or repos to
   // the MongoDB
   repoCollection.forEach((obj) => {
+    console.log(obj.name, obj.forks, 'dsdsddsdsdsdsdsdssdsdsdsdsdsddsdsdsddsdsdsd')
     var currentRepo = new Repo({
       _id: obj.id,
       userName: obj.owner.login,
       repoName: obj.name,
       url: obj.html_url,
-      fork: obj.forks
+      forks: obj.forks
     })
-    console.log(currentRepo)
+
     currentRepo.save(function (err, currentRepo) {
       if (err) {
         return console.error(err)
@@ -44,9 +45,25 @@ let save = (err, repoCollection) => {
         console.log(`${currentRepo} added to database`)
       }
     })
+
   })
 
 }
 
+let extract = (callback) => {
 
+  let cb = (err, repos) => {callback(repos)}
+
+
+  Repo.find(cb).sort({forks: -1}).limit(10)
+
+
+  // if (err) {
+  //   console.log(err)
+  // } else {
+
+  // }
+}
+
+module.exports.extract = extract;
 module.exports.save = save;
